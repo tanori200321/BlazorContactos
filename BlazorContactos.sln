@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorContactos.Server", "BlazorContactos\Server\BlazorContactos.Server.csproj", "{05091C2F-1279-472C-BC1C-2975D927C4C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorContactos.Server", "BlazorContactos\Server\BlazorContactos.Server.csproj", "{05091C2F-1279-472C-BC1C-2975D927C4C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorContactos.Client", "BlazorContactos\Client\BlazorContactos.Client.csproj", "{AFB1C5B0-C155-40C8-A361-0076B2B718BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorContactos.Client", "BlazorContactos\Client\BlazorContactos.Client.csproj", "{AFB1C5B0-C155-40C8-A361-0076B2B718BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorContactos.Shared", "BlazorContactos\Shared\BlazorContactos.Shared.csproj", "{817600DF-8C3A-4625-9E90-23F71BF3FE50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorContactos.Shared", "BlazorContactos\Shared\BlazorContactos.Shared.csproj", "{817600DF-8C3A-4625-9E90-23F71BF3FE50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
