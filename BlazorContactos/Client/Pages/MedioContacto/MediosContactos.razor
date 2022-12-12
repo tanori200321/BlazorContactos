@@ -1,5 +1,75 @@
-﻿@page "/mediocontacto"
+﻿@page "/medioscontactos"
+@using BlazorContactos.Shared.DTOs.MediosContactos
+@using BlazorContactos.Shared.DTOs.Contactos
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Medios Contactos</h3>
+
+<div class="row justify-content-end">
+    <div class="col-lg-3 text-end">
+        <button type="button" class="btn btn-success" @onclick=@(() => navigationManager.NavigateTo("mediocontacto"))>Agregar</button>
+    </div>
+</div>
+
+@if (medioscontactos == null)
+{
+    <h1>Cargando...</h1>
+}
+else if (medioscontactos.Count == 0)
+{
+    <h1>No se encontraron Medios Contactos...</h1>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table text-center table-hover">
+            <thead class="table-striped">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">ContactoId</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mediocontacto in medioscontactos)
+                {
+                    <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">ContactoId</th>
+
+                        <td>
+                            <button class="btn btn-primary" type="button" @onclick=@(() => navigationManager.NavigateTo($"mediocontacto/{mediocontacto.Id}"))>Editar</button>
+                            <button class="btn btn-danger" type="button" @onclick="@(() => Eliminar(mediocontacto))">Eliminar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @code {
+    protected List<MedioContactoDTO> medioscontactos;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await httpClient.GetFromJsonAsync<List<MedioContactoDTO>>("api/medioscontactos");
+        if (response != null)
+        {
+            medioscontactos = response;
+        }
+    }
+
+    protected async Task Eliminar(MedioContactoDTO mediocontacto)
+    {
+        await httpClient.DeleteAsync($"api/medioscontactos/{mediocontacto.Id}");
+        medioscontactos.Remove(mediocontacto);
+    }
 }

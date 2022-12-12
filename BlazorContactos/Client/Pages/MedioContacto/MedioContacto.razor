@@ -1,5 +1,76 @@
-﻿<h3>MedioContacto</h3>
+﻿@page "/mediocontacto"
+@page "/mediocontacto/{id:int}"
+
+@using BlazorContactos.Shared.DTOs.MediosContactos;
+@using BlazorContactos.Shared.DTOs.Contactos
+
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Agregar</h3>
+
+<EditForm Model="mediocontacto" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="@mediocontacto.Email" />
+            <ValidationMessage For="@(() => mediocontacto.Email)" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Telefono</label>
+            <InputText id="Telefono" class="form-control" @bind-Value="@mediocontacto.Telefono" />
+            <ValidationMessage For="@(() => mediocontacto.Telefono)" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Celular</label>
+            <InputText id="Celular" class="form-control" @bind-Value="@mediocontacto.Celular" />
+            <ValidationMessage For="@(() => mediocontacto.Celular)" />
+        </div>
+
+
+
+    </div>
+            
+    
+
+
+    <div class="col-1g-12 text-end mb-3 pt-4">
+        <hr />
+        <button type="button" class="btn btn-danger" onclick="history.back()">Cancelar</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+
+</EditForm>
+
 
 @code {
+    protected MedioContactoDTO mediocontacto = new MedioContactoDTO();
+    [Parameter] public int id { get; set; } = 0;
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (id > 0)
+        {
+            var response = await httpClient.GetFromJsonAsync<MedioContactoDTO>($"api/medioscontactos/{id}");
+            if (response != null)
+            {
+                mediocontacto = response;
+            }
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        if (id > 0)
+        {
+            await httpClient.PutAsJsonAsync<MedioContactoDTO>("api/medioscontactos", mediocontacto);
+        }
+        else
+        {
+            await httpClient.PostAsJsonAsync<MedioContactoDTO>("api/medioscontactos", mediocontacto);
+        }
+
+        navigationManager.NavigateTo("medioscontactos");
+    }
 }

@@ -6,7 +6,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>Contactos</h3>
+<h3>Agregar</h3>
 
 <EditForm Model="contacto" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -14,6 +14,14 @@
         <div class="mb-3">
             <label class="form-label">Nombre</label>
             <InputText id="Nombre" class="form-control" @bind-Value="@contacto.Nombre" />
+            <ValidationMessage For="@(() => contacto.Nombre)" />
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label class="form-label">Telefono</label>
+            <InputText id="Telefono" class="form-control" @bind-Value="@contacto.Nombre" />
             <ValidationMessage For="@(() => contacto.Nombre)" />
         </div>
     </div>
@@ -47,13 +55,13 @@
     {
         if (id > 0)
         {
-            await httpClient.PutAsJsonAsync<ContactoDTO>("api/contactos", contacto);
+            await httpClient.PutAsJsonAsync<ContactoDTO>("api/", contacto);
         }
         else
         {
-            await httpClient.PostAsJsonAsync<ContactoDTO>("api/contactos", contacto);
+            await httpClient.PostAsJsonAsync<ContactoDTO>("api/", contacto);
         }
 
-        navigationManager.NavigateTo("contactos");
+        navigationManager.NavigateTo("");
     }
 }
